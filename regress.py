@@ -4,7 +4,7 @@ randomized trees.
 
 """
 
-# Authors: Nicolò Giannini
+# Authors: Nicolo' Giannini
 
 # =============================================================================
 # Types and constants
@@ -25,19 +25,14 @@ def load(filename, hasHeader = True, separator = ','):
     content = []
     header = []
     isFirstLoop = True
-
     checkFormat(filename)
-
     #Open the file object
     with open(filename, 'r') as f: 
-
         for line in f:
             row = []
             fields = line.split(separator)      
-
             #Checks on possible corner cases
             fields = checkQuotes(fields)  
-
             if hasHeader and isFirstLoop:
                 for field in fields:
                     header.append(field.strip('\n'))
@@ -63,22 +58,17 @@ def checkQuotes(fields):
 
     """
     rootIndex = 0
-
     for field in fields:
         if '"' in field and field.count('"') % 2 != 0:
             suffixIndex = rootIndex + 1
-
             #Once it has found the start(root) of the string it looks for where else it ends(suffix)
             for suffixIndex in range(suffixIndex, len(fields)):
                 if '"' in fields[suffixIndex]:
                     newfield = field + fields[suffixIndex]
                     fields.remove(fields[suffixIndex])
                     break
-
             fields[fields.index(field)] = newfield
-
         rootIndex += 1
-
     return fields
 
 def dataTypes(header, content):
@@ -87,7 +77,6 @@ def dataTypes(header, content):
 
     """
     result = []
-
     for i in range(0, len(header)):
         try:
             check = int(content[i])
@@ -107,7 +96,6 @@ def dataTypes(header, content):
                     header[i] : type(content[i])
                 }
                 result.append(dataType)
-    
     return result
 
 #Modifier methods
@@ -118,14 +106,11 @@ def reverse(data):
 
     """
     dataReverse = []
-
     for headIndex in range (len(data[0])):  
         block = [] 
-
         for item in data:
             block.append(item[headIndex])
         dataReverse.append(block)
-
     return dataReverse
 
 
@@ -136,7 +121,6 @@ def toColumn(content):
 
     """
     dataColumns = reverse(content)
-
     return dataColumns
 
 def toRow(content):
@@ -146,7 +130,6 @@ def toRow(content):
 
     """
     dataRows = reverse(content)
-
     return dataRows
 
 #Preprocess methods
@@ -157,10 +140,8 @@ def preProcessing(content):
 
     """
     rowCounter = 0
-
     for row in content:
         itemCounter = 0
-
         for item in row:
             try:
                 itemConverted = int(item)
@@ -171,11 +152,8 @@ def preProcessing(content):
                     row[itemCounter] = itemConverted
                 except:
                     pass
-
             itemCounter += 1
-        
         rowCounter += 1
-
     return content
 
 def isCatVar(var):
@@ -197,16 +175,12 @@ def processCatVars(header, content):
 
     """
     dataColumns = toColumn(content)
-
     boxConverted = []
-
     for column in dataColumns:
         if isCatVar(column) is not True:
             boxConverted.append(column)
             continue
-
         columnConverted = []
-
         for item in column:
             try:
                 itemConverted = int(item)
@@ -224,10 +198,8 @@ def processCatVars(header, content):
                     for item in column:
                         columnConverted.append(columnsSetOrd.index(item))
                     break
-
         if len(columnConverted) == len(column):
             boxConverted.append(columnConverted)
-
     return toRow(boxConverted)
 
 def giniIndex(data, target):
@@ -236,52 +208,41 @@ def giniIndex(data, target):
     inequality of a distribution. It stores sum of squared probabilities 
     of each class.
 
-        Gini = 1 – Σ (Pi)² for i=1 to number of classes
+        Gini = 1 - Σ (Pi)² for i=1 to number of classes
 
     NOTE: The target must be a binary variable.
 
     """
     if len(set(target)) != 2:
         raise Exception("The target must be a binary variable.")
-
     subsGini = []
-
     #Distinct variables from data
     varSet = set(data)
-
     #In this loop the corresponding indices are saved for each variable into dataIndeces
     dataIndeces = []
-
     for var in varSet:
         varIndeces = []
         index = 0
-
         for item in data:
             if var == item:
                 varIndeces.append(index)
             index += 1
-
         dataIndeces.append(varIndeces)
 
     #For each index block(indcs), the respective values ​​from the target field are saved into targetValues
     for indcs in dataIndeces:
         targetValues = []
         varGini = []
-
         for ind in indcs:
             targetValues.append(target[ind])
-
         for x in set(targetValues):
             c = targetValues.count(x)
             varGini.append(c)
-
         #If there is only one variable, it means that the gini impurity will be zero, for reasons of calculations I add a 0
         if len(varGini) < 2:
             varGini.append(0)
-
         #Formula for the gini index
         subsGini.append((len(indcs) / len(data)) * (1 - ((varGini[0] / len(indcs)) ** 2) - ((varGini[1] / len(indcs)) ** 2)))
-
     return subsGini
         
 def giniIndeces(header, content, target):
@@ -293,22 +254,16 @@ def giniIndeces(header, content, target):
     """
     #ginis stores all the gini impurity for each class
     ginis = {} 
-
     #Prepares the data for the calculation
     content = toColumn(content)
     c = 0
-
     for column in content:
         gini = 0
         subsgini = giniIndex(column, target)
-
         for sub in subsgini:
             gini += sub
-
         ginis[header[c]] = gini
-
         c += 1
-
     return ginis
 
 def minGini(ginis):
@@ -320,14 +275,11 @@ def minGini(ginis):
     listGinis = []
     listKeys = []
     res = []
-
     for gini in ginis:
         listGinis.append(ginis[gini])
         listKeys.append(gini)
-    
     res.append(listKeys[listGinis.index(min(listGinis))])
     res.append(min(listGinis))
-
     return res
 
 def subtract(data, target, var = None, optionIndex = False):
@@ -338,28 +290,22 @@ def subtract(data, target, var = None, optionIndex = False):
 
     """
     i = 0
-
     if var != None:
         toRemove = []
-
         for row in data:
             if row[target] == var:
                 toRemove.append(i)
             i += 1
-
         for index in sorted(toRemove, reverse=True):
             data.pop(index)
-        
         if optionIndex is False:
             return data
         else:
             #The optionIndex allows you to return a further list containing the indexes of the items processed
             return data, toRemove
-
     else:
         data = toColumn(data)
         data.pop(target)
-
         return toRow(data)
 
 def takeOnly(data, target, var = None, optionIndex = False):
@@ -370,14 +316,12 @@ def takeOnly(data, target, var = None, optionIndex = False):
     dataReduced = []
     toRemove = []
     i = 0
-
     for item in data:
         if item[target] == var:
             dataReduced.append(item)
         else:
             toRemove.append(i)
         i += 1
-
     if optionIndex == False:
         return dataReduced
     else:
@@ -398,16 +342,12 @@ def nextLeaf(header, content, target):
     if len(box) == 1:
         subgini = giniIndex(toColumn(content)[box[0]], target)
         nextLeaf = [ header[box[0]], sorted(list(set(toColumn(content)[box[0]])))[subgini.index(min(subgini))], min(subgini) ]
-
         return nextLeaf
-
     ginis = giniIndeces(header, content, target)
     gini = minGini(ginis)
     #Retrieves the gini values ​​for the subcategories of the class
     subgini = giniIndex(toColumn(content)[header.index(gini[0])], target)
-
     nextLeaf = [ gini[0], sorted(list(set(toColumn(content)[header.index(gini[0])])))[subgini.index(min(subgini))], min(subgini) ]
-
     return nextLeaf
 
 def getNode(header, content, target, fvalue, field):
@@ -430,9 +370,7 @@ def mostCommon(target):
     both = []
     for x in sorted(set(target)):
         both.append(target.count(x))
-
     val = sorted(set(target))[both.index(max(both))]
-
     return val
 
 def accuracy(predicted, target):
@@ -442,14 +380,11 @@ def accuracy(predicted, target):
     """
     i = 0
     tot = []
-
     for predict in predicted:
         if predict == target[i]:
             tot.append(predict)
         i += 1
-    
     acc = len(tot) / len(target)
-
     return round(acc, 3)
 
 class DecisionTree:
@@ -464,7 +399,6 @@ class DecisionTree:
         self.finished = False
         #The root is the node from which the branches will start
         self.root = None
-
     def grow(self, header, content, target):
         """
         Develops the decision tree based on the data.
@@ -485,11 +419,9 @@ class DecisionTree:
 
         """
         prediction = []
-
         for item in content:
             predict = self.checkNode(header, self.root, item)
             prediction.append(predict)
-
         return prediction
     
     def checkNode(self, header, node, item):
@@ -506,7 +438,6 @@ class DecisionTree:
                 res = self.checkNode(header, node.right, item)
                 return res
         else:
-
             return node.res
 
 class Node:
@@ -532,20 +463,16 @@ class Node:
         self.field = field   
         self.fvalue = fvalue
         self.res = res
-        
         if res is None:
             #Left Node block
             self.content, toRemove = takeOnly(content, header.index(self.field), self.fvalue, True)
             for ind in sorted(toRemove, reverse=True):
                 self.target.pop(ind)
-
             self.left = getNode(self.header, self.content, self.target, fvalue, field)
-
             #Right Node block
             content, indeces = subtract(content, header.index(field), fvalue, True)
             for ind in sorted(indeces, reverse=True):
-                target.pop(ind)
-                
+                target.pop(ind)   
             self.right = getNode(header, content, target, fvalue, field)
         else:
             pass
