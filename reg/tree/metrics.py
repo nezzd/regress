@@ -1,4 +1,4 @@
-from utils import toColumn
+from ..utils import toColumn
 
 def giniIndex(data, target):
     """

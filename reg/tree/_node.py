@@ -1,4 +1,4 @@
-from utils import toColumn, toRow
+from ..utils import toRow, toColumn
 from tree.metrics import giniIndex, giniIndices, minGini
 
 class Node:
