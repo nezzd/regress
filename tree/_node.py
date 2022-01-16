@@ -1,5 +1,5 @@
 from utils import toColumn, toRow
-from tree.metrics import giniIndex, giniIndeces, minGini
+from tree.metrics import giniIndex, giniIndices, minGini
 
 class Node:
     """
@@ -121,7 +121,7 @@ def nextLeaf(header, content, target):
         subgini = giniIndex(toColumn(content)[box[0]], target)
         nextLeaf = [header[box[0]], sorted(list(set(toColumn(content)[box[0]])))[subgini.index(min(subgini))], min(subgini)]
         return nextLeaf
-    ginis = giniIndeces(header, content, target)
+    ginis = giniIndices(header, content, target)
     gini = minGini(ginis)
     #Retrieves the gini values ​​for the subcategories of the class
     subgini = giniIndex(toColumn(content)[header.index(gini[0])], target)

@@ -43,7 +43,7 @@ def giniIndex(data, target):
         subsGini.append((len(indcs) / len(data)) * (1 - ((varGini[0] / len(indcs)) ** 2) - ((varGini[1] / len(indcs)) ** 2)))
     return subsGini
         
-def giniIndeces(header, content, target):
+def giniIndices(header, content, target):
     """
     Given n variables it calculates the gini index for each of them.
     The object that the method returns is a dictionary where the key corresponds
