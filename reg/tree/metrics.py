@@ -1,4 +1,7 @@
-from ..utils import toColumn
+import sys
+sys.path.append("..")
+
+from utils.helper import toColumn, toRow
 
 def giniIndex(data, target):
     """
