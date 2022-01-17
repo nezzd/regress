@@ -1,4 +1,9 @@
-from utils import to_row, to_column
+import sys
+from os.path import dirname, abspath
+d = dirname(dirname(abspath(__file__)))
+sys.path.append(d)
+
+from utils.helper import to_row, to_column
 from tree._metrics import gini_index, gini_indices, min_gini
 
 class Node:

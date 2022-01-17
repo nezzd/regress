@@ -1,5 +1,7 @@
 import sys
-print(sys.path)
+from os.path import dirname, abspath
+d = dirname(dirname(abspath(__file__)))
+sys.path.append(d)
 
 from utils.helper import to_column
 
