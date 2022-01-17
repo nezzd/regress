@@ -1,5 +1,5 @@
-from ..utils import toRow, toColumn
-from tree.metrics import giniIndex, giniIndices, minGini
+from utils import to_row, to_column
+from tree._metrics import gini_index, gini_indices, min_gini
 
 class Node:
     """
@@ -25,8 +25,8 @@ class Node:
         self.res = res
         if res is None:
             #Left Node block
-            self.content, toRemove = self.takeOnly(content, header.index(self.field), self.fvalue, True)
-            for ind in sorted(toRemove, reverse=True):
+            self.content, to_remove = self.take_only(content, header.index(self.field), self.fvalue, True)
+            for ind in sorted(to_remove, reverse=True):
                 self.target.pop(ind)
             self.left = self.getNode(self.header, self.content, self.target, fvalue, field)
             #Right Node block
@@ -37,7 +37,7 @@ class Node:
         else:
             pass
     
-    def subtract(data, target, var = None, optionIndex = False):
+    def subtract(data, target, var = None, option_index = False):
         """  
         If the var parameter is set, it removes from the data all the records whose target 
         variable corresponds to var.
@@ -46,44 +46,44 @@ class Node:
         """
         i = 0
         if var != None:
-            toRemove = []
+            to_remove = []
             for row in data:
                 if row[target] == var:
-                    toRemove.append(i)
+                    to_remove.append(i)
                 i += 1
-            for index in sorted(toRemove, reverse=True):
+            for index in sorted(to_remove, reverse=True):
                 data.pop(index)
-            if optionIndex is False:
+            if option_index is False:
                 return data
             else:
                 #The optionIndex allows you to return a further list containing the indexes of the items processed
-                return data, toRemove
+                return data, to_remove
         else:
-            data = toColumn(data)
+            data = to_column(data)
             data.pop(target)
-            return toRow(data)
+            return to_row(data)
 
-    def takeOnly(data, target, var = None, optionIndex = False):
+    def takeOnly(data, target, var = None, option_index = False):
         """
         Returns only the data that contains the indicated variable in the target field.
 
         """
-        dataReduced = []
-        toRemove = []
+        data_reduced = []
+        to_remove = []
         i = 0
         for item in data:
             if item[target] == var:
-                dataReduced.append(item)
+                data_reduced.append(item)
             else:
-                toRemove.append(i)
+                to_remove.append(i)
             i += 1
-        if optionIndex == False:
-            return dataReduced
+        if option_index == False:
+            return data_reduced
         else:
             #The optionIndex allows you to return a further list containing the indexes of the items processed
-            return dataReduced, toRemove
+            return data_reduced, to_remove
         
-    def getNode(self, header, content, target, fvalue, field):
+    def get_node(self, header, content, target, fvalue, field):
         if len(set(target)) == 1:
             return Node(header, content, target, fvalue, field, res = list(set(target))[0])
         elif len(set(target)) == 0:
@@ -92,10 +92,10 @@ class Node:
             val = self.mostCommon(target)
             return Node(header, content, target, fvalue, field, res = val)
         else:
-            nextNode = nextLeaf(header, content, target)
-            return Node(header, content, target, nextNode[1], nextNode[0])
+            next_node = next_leaf(header, content, target)
+            return Node(header, content, target, next_node[1], next_node[0])
 
-    def mostCommon(target):
+    def most_common(target):
         """
         Return the most common option in a binary collection.
 
@@ -106,24 +106,24 @@ class Node:
         val = sorted(set(target))[both.index(max(both))]
         return val
 
-def nextLeaf(header, content, target):
+def next_leaf(header, content, target):
     """
     Based on the gini index it decides how to compose the next leaf.
 
     """
     box = []
     i = 0
-    for col in toColumn(content):
+    for col in to_column(content):
         if len(set(col)) > 1:
             box.append(i)
         i += 1
     if len(box) == 1:
-        subgini = giniIndex(toColumn(content)[box[0]], target)
-        nextLeaf = [header[box[0]], sorted(list(set(toColumn(content)[box[0]])))[subgini.index(min(subgini))], min(subgini)]
+        subgini = gini_index(to_column(content)[box[0]], target)
+        nextLeaf = [header[box[0]], sorted(list(set(to_column(content)[box[0]])))[subgini.index(min(subgini))], min(subgini)]
         return nextLeaf
-    ginis = giniIndices(header, content, target)
-    gini = minGini(ginis)
+    ginis = gini_indices(header, content, target)
+    gini = min_gini(ginis)
     #Retrieves the gini values ​​for the subcategories of the class
-    subgini = giniIndex(toColumn(content)[header.index(gini[0])], target)
-    nextLeaf = [gini[0], sorted(list(set(toColumn(content)[header.index(gini[0])])))[subgini.index(min(subgini))], min(subgini)]
-    return nextLeaf
+    subgini = gini_index(to_column(content)[header.index(gini[0])], target)
+    leaf = [gini[0], sorted(list(set(to_column(content)[header.index(gini[0])])))[subgini.index(min(subgini))], min(subgini)]
+    return leaf

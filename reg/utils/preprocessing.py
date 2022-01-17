@@ -1,28 +1,28 @@
-from helper import toColumn, toRow
+from helper import to_column, to_row
 
-def preProcessing(content):
+def pre_processing(content):
     """
     If possible convert each value to the most suitable type.
 
     """
-    rowCounter = 0
+    row_counter = 0
     for row in content:
-        itemCounter = 0
+        item_counter = 0
         for item in row:
             try:
-                itemConverted = int(item)
-                row[itemCounter] = itemConverted
+                item_converted = int(item)
+                row[item_counter] = item_converted
             except:
                 try:
-                    itemConverted = float(item)
-                    row[itemCounter] = itemConverted
+                    item_converted = float(item)
+                    row[item_counter] = item_converted
                 except:
                     pass
-            itemCounter += 1
-        rowCounter += 1
+            item_counter += 1
+        row_counter += 1
     return content
 
-def isCatVar(var):
+def is_cat_var(var):
         """
         Check if all elements in the list are of the same type.
 
@@ -34,36 +34,36 @@ def isCatVar(var):
         else:
             return True
 
-def processCatVars(header, content):
+def process_cat_vars(header, content):
     """
     Processes categorical variables, the goal is to reproduce the content entirely
     in numerical form.
 
     """
-    dataColumns = toColumn(content)
-    boxConverted = []
-    for column in dataColumns:
-        if isCatVar(column) is not True:
-            boxConverted.append(column)
+    data_columns = to_column(content)
+    box_converted = []
+    for column in data_columns:
+        if is_cat_var(column) is not True:
+            box_converted.append(column)
             continue
-        columnConverted = []
+        column_converted = []
         for item in column:
             try:
-                itemConverted = int(item)
-                columnConverted.append(itemConverted)
+                item_converted = int(item)
+                column_converted.append(item_converted)
             except:
                 try:
-                    itemConverted = float(item)
-                    columnConverted.append(itemConverted)
+                    item_converted = float(item)
+                    column_converted.append(item_converted)
                 except:
-                    columnConverted = []
+                    column_converted = []
                     columnSet = set(column)
 
                     #Sort the list of variables for being consistent
-                    columnsSetOrd = sorted(list(columnSet))
+                    columns_set_ord = sorted(list(columnSet))
                     for item in column:
-                        columnConverted.append(columnsSetOrd.index(item))
+                        column_converted.append(columns_set_ord.index(item))
                     break
-        if len(columnConverted) == len(column):
-            boxConverted.append(columnConverted)
-    return toRow(boxConverted)
+        if len(column_converted) == len(column):
+            box_converted.append(column_converted)
+    return to_row(box_converted)

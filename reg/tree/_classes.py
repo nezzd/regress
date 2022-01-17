@@ -1,4 +1,4 @@
-from _node import Node, nextLeaf
+from _node import Node, next_leaf
 
 class DecisionTree:
     """
@@ -23,8 +23,8 @@ class DecisionTree:
             if self.root:
                 self.finished = True
             else:
-                nextNode = nextLeaf(header, content, target)
-                self.root = Node(header, content, target, nextNode[1], nextNode[0])
+                next_node = next_leaf(header, content, target)
+                self.root = Node(header, content, target, next_node[1], next_node[0])
     
     def predict(self, header, content):
         """
@@ -33,11 +33,11 @@ class DecisionTree:
         """
         prediction = []
         for item in content:
-            predict = self.checkNode(header, self.root, item)
+            predict = self.check_node(header, self.root, item)
             prediction.append(predict)
         return prediction
     
-    def checkNode(self, header, node, item):
+    def check_node(self, header, node, item):
         """
         Iterative logic to check the condition of each node, until the path is exhausted
         and the variable is predicted
@@ -45,10 +45,10 @@ class DecisionTree:
         """
         if node.res == None:
             if node.fvalue == item[header.index(node.field)]:
-                res = self.checkNode(header, node.left, item)
+                res = self.check_node(header, node.left, item)
                 return res
             else:
-                res = self.checkNode(header, node.right, item)
+                res = self.check_node(header, node.right, item)
                 return res
         else:
             return node.res
