@@ -1,4 +1,6 @@
-def load(filename, has_header = True, separator = ','):
+import sys
+
+def load(file, has_header = True, separator = ','):
     """
     Starting from the file name as a parameter, it returns header 
     and content in the form of lists.
@@ -13,9 +15,10 @@ def load(filename, has_header = True, separator = ','):
     content = []
     header = []
     is_first_loop = True
-    check_format(filename)
+    check_format(file)
+
     #Open the file object
-    with open(filename, 'r') as f: 
+    with open(file, 'r') as f: 
         for line in f:
             row = []
             fields = line.split(separator)      
@@ -117,3 +120,63 @@ def to_row(content):
     """
     data_rows = reverse(content)
     return data_rows
+
+def subtract(data, target, var = None, option_index = False):
+    """  
+    If the var parameter is set, it removes from the data all the records whose target 
+    variable corresponds to var.
+    Otherwise if var == None deletes from the data, the column that corresponds to the target parameter.
+
+    """
+    i = 0
+    if var != None:
+        to_remove = []
+        for row in data:
+            if row[target] == var:
+                to_remove.append(i)
+            i += 1
+        for index in sorted(to_remove, reverse=True):
+            data.pop(index)
+        if option_index is False:
+            return data
+        else:
+            #The optionIndex allows you to return a further list containing the indexes of the items processed
+            return data, to_remove
+    else:
+        data = to_column(data)
+        data.pop(target)
+        return to_row(data)
+
+def take_only(data, target, var = None, option_index = False):
+    """
+    Returns only the data that contains the indicated variable in the target field.
+
+    """
+    data_reduced = []
+    to_remove = []
+    i = 0
+    for item in data:
+        if item[target] == var:
+            data_reduced.append(item)
+        else:
+            to_remove.append(i)
+        i += 1
+    if option_index == False:
+        return data_reduced
+    else:
+        #The optionIndex allows you to return a further list containing the indexes of the items processed
+        return data_reduced, to_remove
+
+def accuracy(predicted, target):
+    """
+    Accuracy is the ratio of correct predictions to total predictions.
+
+    """
+    i = 0
+    tot = []
+    for predict in predicted:
+        if predict == target[i]:
+            tot.append(predict)
+        i += 1
+    acc = len(tot) / len(target)
+    return round(acc, 3)

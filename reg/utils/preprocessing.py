@@ -1,4 +1,4 @@
-from helper import to_column, to_row
+from .helper import to_column, to_row
 
 def pre_processing(content):
     """

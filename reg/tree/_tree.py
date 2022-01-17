@@ -3,7 +3,7 @@ from os.path import dirname, abspath
 d = dirname(dirname(abspath(__file__)))
 sys.path.append(d)
 
-from _node import Node, next_leaf
+from ._node import Node, next_leaf
 
 class DecisionTree:
     """
@@ -57,17 +57,3 @@ class DecisionTree:
                 return res
         else:
             return node.res
-
-    def accuracy(predicted, target):
-        """
-        Accuracy is the ratio of correct predictions to total predictions.
-
-        """
-        i = 0
-        tot = []
-        for predict in predicted:
-            if predict == target[i]:
-                tot.append(predict)
-            i += 1
-        acc = len(tot) / len(target)
-        return round(acc, 3)
