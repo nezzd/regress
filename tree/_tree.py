@@ -13,16 +13,16 @@ class DecisionTree:
 
     """
     def __init__(self):
-        #Indicates whether the tree is fully built or not
+        #indicates whether the tree is fully built or not
         self.finished = False
-        #The root is the node from which the branches will start
+        #the root is the node from which the branches will start
         self.root = None
     def grow(self, header, content, target):
         """
         Develops the decision tree based on the data.
 
         """
-        #For now it branches out as much as possible
+        #for now it branches out as much as possible
         #TODO add a parameter that allows you to specify the maximum depth of the tree
         while self.finished == False:
             if self.root:
@@ -49,7 +49,7 @@ class DecisionTree:
 
         """
         if node.res == None:
-            if node.fvalue == item[header.index(node.field)]:
+            if node.f_value == item[header.index(node.field)]:
                 res = self.check_node(header, node.left, item)
                 return res
             else:

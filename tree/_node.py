@@ -14,42 +14,42 @@ class Node:
     is respected, the nodes on the right are instead the negation of the parent condition.
 
     """
-    def __init__(self, header, content, target, fvalue = None, field = None, res = None):
+    def __init__(self, header, content, target, f_value = None, field = None, res = None):
         """
         Each node, once initialized, will continue to branch until its own branch is exhausted.
 
         """
         self.left = None
         self.right = None
-        #At the moment I make a copy of the data for each node, it is not optimal and to be replaced with another logic
+        #at the moment I make a copy of the data for each node, it is not optimal and to be replaced with another logic
         self.header = header.copy()
         self.content = content.copy()
         self.target = target.copy()
         self.field = field   
-        self.fvalue = fvalue
+        self.f_value = f_value
         self.res = res
         if res is None:
-            #Left Node block
-            self.content, to_remove = take_only(content, header.index(self.field), self.fvalue, True)
+            #left Node block
+            self.content, to_remove = take_only(content, header.index(self.field), self.f_value, True)
             for ind in sorted(to_remove, reverse=True):
                 self.target.pop(ind)
-            self.left = self.get_node(self.header, self.content, self.target, fvalue, field)
-            #Right Node block
-            content, indeces = subtract(content, header.index(field), fvalue, True)
-            for ind in sorted(indeces, reverse=True):
+            self.left = self.get_node(self.header, self.content, self.target, f_value, field)
+            #right Node block
+            content, indices = subtract(content, header.index(field), f_value, True)
+            for ind in sorted(indices, reverse=True):
                 target.pop(ind)   
-            self.right = self.get_node(header, content, target, fvalue, field)
+            self.right = self.get_node(header, content, target, f_value, field)
         else:
             pass
         
-    def get_node(self, header, content, target, fvalue, field):
+    def get_node(self, header, content, target, f_value, field):
         if len(set(target)) == 1:
-            return Node(header, content, target, fvalue, field, res = list(set(target))[0])
+            return Node(header, content, target, f_value, field, res = list(set(target))[0])
         elif len(set(target)) == 0:
             pass
         elif len(set(tuple(row) for row in content)) == 1:
             val = most_common(target)
-            return Node(header, content, target, fvalue, field, res = val)
+            return Node(header, content, target, f_value, field, res = val)
         else:
             next_node = next_leaf(header, content, target)
             return Node(header, content, target, next_node[1], next_node[0])
@@ -82,7 +82,7 @@ def next_leaf(header, content, target):
         return nextLeaf
     ginis = gini_indices(header, content, target)
     gini = min_gini(ginis)
-    #Retrieves the gini values ​​for the subcategories of the class
+    #retrieves the gini values ​​for the subcategories of the class
     subgini = gini_index(to_column(content)[header.index(gini[0])], target)
     leaf = [gini[0], sorted(list(set(to_column(content)[header.index(gini[0])])))[subgini.index(min(subgini))], min(subgini)]
     return leaf

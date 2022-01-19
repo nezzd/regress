@@ -20,10 +20,10 @@ def gini_index(data, target):
         raise Exception("The target must be a binary variable.")
     subs_gini = []
     #distinct variables from data
-    var_set = set(data)
+    s_data = set(data)
     #in this loop the corresponding indices are saved for each variable into dataIndeces
     data_indices = []
-    for var in var_set:
+    for var in s_data:
         var_indices = []
         index = 0
         for item in data:
