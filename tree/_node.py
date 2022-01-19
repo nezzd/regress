@@ -4,7 +4,7 @@ d = dirname(dirname(abspath(__file__)))
 sys.path.append(d)
 
 from utils.helper import to_column, subtract, take_only
-from tree._metrics import gini_index, gini_indices, min_gini
+from tree._criterion import gini_index, gini_indices, min_gini
 
 class Node:
     """
