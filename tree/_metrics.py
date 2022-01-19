@@ -19,21 +19,21 @@ def gini_index(data, target):
     if len(set(target)) != 2:
         raise Exception("The target must be a binary variable.")
     subs_gini = []
-    #Distinct variables from data
+    #distinct variables from data
     var_set = set(data)
-    #In this loop the corresponding indices are saved for each variable into dataIndeces
-    data_indeces = []
+    #in this loop the corresponding indices are saved for each variable into dataIndeces
+    data_indices = []
     for var in var_set:
-        var_indeces = []
+        var_indices = []
         index = 0
         for item in data:
             if var == item:
-                var_indeces.append(index)
+                var_indices.append(index)
             index += 1
-        data_indeces.append(var_indeces)
+        data_indices.append(var_indices)
 
-    #For each index block(indcs), the respective values ​​from the target field are saved into targetValues
-    for indcs in data_indeces:
+    #for each index block(indcs), the respective values ​​from the target field are saved into targetValues
+    for indcs in data_indices:
         target_values = []
         var_gini = []
         for ind in indcs:
@@ -41,10 +41,10 @@ def gini_index(data, target):
         for x in set(target_values):
             c = target_values.count(x)
             var_gini.append(c)
-        #If there is only one variable, it means that the gini impurity will be zero, for reasons of calculations I add a 0
+        #if there is only one variable, it means that the gini impurity will be zero, for reasons of calculations I add a 0
         if len(var_gini) < 2:
             var_gini.append(0)
-        #Formula for the gini index
+        #formula for the gini index
         subs_gini.append((len(indcs) / len(data)) * (1 - ((var_gini[0] / len(indcs)) ** 2) - ((var_gini[1] / len(indcs)) ** 2)))
     return subs_gini
         
@@ -57,7 +57,7 @@ def gini_indices(header, content, target):
     """
     #ginis stores all the gini impurity for each class
     ginis = {} 
-    #Prepares the data for the calculation
+    #prepares the data for the calculation
     content = to_column(content)
     c = 0
     for column in content:

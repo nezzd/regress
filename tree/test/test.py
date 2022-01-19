@@ -3,7 +3,7 @@ from os.path import dirname, abspath
 d = dirname(dirname(dirname(abspath(__file__))))
 sys.path.append(d)
 
-from utils.helper import load, data_types, to_column, to_row, subtract, accuracy
+from utils.helper import load, to_column, to_row, subtract, accuracy
 from utils.preprocessing import pre_processing, process_cat_vars
 from tree._tree import DecisionTree
 from datetime import datetime
@@ -13,20 +13,14 @@ sys.path.append(d)
 
 header, content = load(d + '\\train.csv')
 
-x = data_types(header, content[0])
 content = subtract(content, 0) #Remove the Id Column
-
 header.remove('PassengerId') #Remove the Head PassengerId
-
 content = subtract(content, 2) 
 header.remove('Name') 
-
 content = subtract(content, 6) 
 header.remove('Ticket') 
-
 content = subtract(content, 6) 
 header.remove('Fare') 
-
 content = subtract(content, 6) 
 header.remove('Cabin') 
 
