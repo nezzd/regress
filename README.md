@@ -1,4 +1,4 @@
-# Decision3s
+# Decision3
 ## Machine Learning algorithms 
 
 Regress provides some of the most widely used statistical tools in the field of machine learning. 
