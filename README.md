@@ -1,4 +1,4 @@
-# decision3
+# decision-kit
 
 Tree-based library, with branching criteria based on Gini impurity. At the moment only the CART decision tree and a RandomForest based on it are implemented.
 
