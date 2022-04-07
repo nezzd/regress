@@ -5,7 +5,7 @@ sys.path.append(d)
 
 from utils.helper import load, to_column, to_row, subtract, accuracy
 from utils.preprocessing import pre_processing, process_cat_vars
-from ensemble._forest import RandomForest
+from ensemble._forest import RandForest
 from datetime import datetime
 
 d = dirname(abspath(__file__))
@@ -55,7 +55,7 @@ ytrain = target[slice(0, 700)].copy()
 xtest = convertedcat[slice(700, 893)].copy()
 ytest = target[slice(700, 893)].copy()
 
-model = RandomForest()
+model = RandForest()
 start = datetime.now()
 model.grow(header, xtrain, ytrain)
 print(datetime.now() - start)

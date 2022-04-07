@@ -6,7 +6,7 @@ sys.path.append(d)
 
 from tree._tree import DecisionTree
 
-class RandomForest():
+class RandForest():
     def __init__(self, ntrees = 10):
         self.forest = []
         self.ntrees = ntrees
