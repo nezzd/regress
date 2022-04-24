@@ -57,7 +57,7 @@ ytest = target[slice(700, 893)].copy()
 
 model = DecisionTree()
 start = datetime.now()
-model.grow(header, xtrain, ytrain)
+model.build(header, xtrain, ytrain)
 print(datetime.now() - start)
 prd = model.predict(header, xtest)
 

@@ -17,7 +17,7 @@ class DecisionTree:
         self.finished = False
         #the root is the node from which the branches will start
         self.root = None
-    def grow(self, header, content, target):
+    def build(self, header, content, target):
         """
         Develops the decision tree based on the data.
 
