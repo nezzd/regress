@@ -1,5 +1,7 @@
 import sys
 from os.path import dirname, abspath
+
+import sklearn
 d = dirname(dirname(dirname(abspath(__file__))))
 sys.path.append(d)
 
@@ -7,6 +9,7 @@ from utils.helper import load, to_column, to_row, subtract, accuracy
 from utils.preprocessing import pre_processing, process_cat_vars
 from tree._tree import DecisionTree
 from datetime import datetime
+from sklearn import tree
 
 d = dirname(abspath(__file__))
 sys.path.append(d)
@@ -55,12 +58,14 @@ ytrain = target[slice(0, 700)].copy()
 xtest = convertedcat[slice(700, 893)].copy()
 ytest = target[slice(700, 893)].copy()
 
-model = DecisionTree()
-start = datetime.now()
-model.build(header, xtrain, ytrain)
-print(datetime.now() - start)
-prd = model.predict(header, xtest)
+scikit_learn_tree = tree.DecisionTreeClassifier()
+my_decision_tree = DecisionTree()
 
-acc = accuracy(prd, ytest)
+scikit_learn_tree.fit(xtrain, ytrain)
+my_decision_tree.build(header, xtrain, ytrain)
 
-print(acc)
+scikit_learn_accuracy = accuracy(scikit_learn_tree.predict(xtest), ytest)
+my_prediction_accuracy = accuracy(my_decision_tree.predict(header, xtest), ytest)
+
+print(f'Scikit-learn accuracy: {scikit_learn_accuracy}')
+print(f'My prection accuracy: {my_prediction_accuracy}')
