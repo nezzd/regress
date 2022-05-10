@@ -1,10 +1,5 @@
-import sys
-from os.path import dirname, abspath
-d = dirname(dirname(abspath(__file__)))
-sys.path.append(d)
-
-from utils.helper import to_column, subtract, take_only
-from tree._criterion import gini_index, gini_indices, min_gini
+from decisionkit.utils.helper import to_column, subtract, take_only
+from decisionkit.tree._criterion import gini_index, gini_indices, min_gini
 
 class Node:
     """

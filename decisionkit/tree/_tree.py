@@ -1,4 +1,4 @@
-from tree._node import Node, next_leaf
+from decisionkit.tree._node import Node, next_leaf
 
 class DecisionTree:
     """
