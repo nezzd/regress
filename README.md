@@ -1,7 +1,7 @@
 # decision-kit
 
 Decision tree from scratch, implementation and accuracy comparison with branching criteria based on Gini impurity.
-Below a snapshot of the test with the result I obtained and a short explaination.
+Below a snapshot of the result I obtained.
 
 ```python
 from decisionkit.tree import _tree as decisionkit_tree

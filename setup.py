@@ -8,7 +8,7 @@ setuptools.setup(
     version="0.1.0",
     author="Nicolò Giannini",
     author_email="nicogiannini@yahoo.com",
-    description="Tree based library, with branching criteria based on Gini impurity.",
+    description="Decision tree from scratch",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/nicologiannini/decision-kit",
