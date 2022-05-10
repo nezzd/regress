@@ -1,6 +1,6 @@
 # decision-kit
 
-Tree-based library, with branching criteria based on Gini impurity.
+Decision tree from scratch, implementation and accuracy comparison with branching criteria based on Gini impurity.
 
 Gini = 1 - Σ (Pi)² for i=1 to number of classes
 
