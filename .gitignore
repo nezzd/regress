@@ -2,3 +2,7 @@ __pycache__/
 *~
 *.swp
 *.swo
+
+dist
+decisionkit.egg-info
+build

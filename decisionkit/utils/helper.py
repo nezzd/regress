@@ -1,5 +1,3 @@
-import sys
-
 def load(file, has_header = True, separator = ','):
     """
     Starting from the file name as a parameter, it returns header 

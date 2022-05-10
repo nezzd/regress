@@ -1,16 +1,10 @@
-import sys
-from os.path import dirname, abspath
-
-import sklearn
-d = dirname(dirname(dirname(abspath(__file__))))
-sys.path.append(d)
-
-from utils.helper import load, to_column, to_row, subtract, accuracy
-from utils.preprocessing import pre_processing, process_cat_vars
-from tree._tree import DecisionTree
-from datetime import datetime
+from decisionkit.utils.helper import load, to_column, to_row, subtract, accuracy
+from decisionkit.utils.preprocessing import pre_processing, process_cat_vars
+from decisionkit.tree._tree import DecisionTree
 from sklearn import tree
 
+import sys
+from os.path import dirname, abspath
 d = dirname(abspath(__file__))
 sys.path.append(d)
 

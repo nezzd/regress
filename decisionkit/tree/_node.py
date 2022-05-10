@@ -21,7 +21,6 @@ class Node:
         """
         self.left = None
         self.right = None
-        #at the moment I make a copy of the data for each node, it is not optimal and to be replaced with another logic
         self.header = header.copy()
         self.content = content.copy()
         self.target = target.copy()
