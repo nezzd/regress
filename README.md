@@ -5,8 +5,8 @@ Tree-based library, with branching criteria based on Gini impurity.
 Gini = 1 - Σ (Pi)² for i=1 to number of classes
 
 ```python
-from utils.helper import accuracy
-from tree._tree import DecisionTree
+from decisionkit.utils.helper import accuracy
+from decisionkit.tree._tree import DecisionTree
 
 classifier = DecisionTree()
 classifier.build(header, xtrain, ytrain)
