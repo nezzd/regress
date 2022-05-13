@@ -4,5 +4,5 @@ __pycache__/
 *.swo
 
 dist
-decisionkit.egg-info
+decision.egg-info
 build
