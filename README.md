@@ -1,6 +1,6 @@
 # decision-kit
 
-Decision tree classifier implementation with branching criteria based on Gini impurity.
+Decision tree classifier implementation with branching criteria based on Gini impurity.<br/>
 Below a snapshot of the result I obtained.
 
 ```python
