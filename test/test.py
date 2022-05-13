@@ -1,6 +1,6 @@
-from decisionkit.utils.helper import load, to_column, to_row, subtract, accuracy
-from decisionkit.utils.preprocessing import pre_processing, process_cat_vars
-from decisionkit.tree._tree import DecisionTree as decisionkit_tree
+from decision.utils.helper import load, to_column, to_row, subtract, accuracy
+from decision.utils.preprocessing import pre_processing, process_cat_vars
+from decision.imp.tree import DecisionTree as decision_tree
 from sklearn.tree import DecisionTreeClassifier as sklearn_tree
 
 import sys
@@ -53,7 +53,7 @@ xtest = convertedcat[slice(700, 893)].copy()
 ytest = target[slice(700, 893)].copy()
 
 scikit_learn_tree = sklearn_tree()
-my_decision_tree = decisionkit_tree()
+my_decision_tree = decision_tree()
 
 scikit_learn_tree.fit(xtrain, ytrain)
 my_decision_tree.build(header, xtrain, ytrain)

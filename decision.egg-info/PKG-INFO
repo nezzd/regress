@@ -1,16 +1,29 @@
+Metadata-Version: 2.1
+Name: decision
+Version: 0.1.0
+Summary: Decision tree from scratch
+Home-page: https://github.com/nicologiannini/decision-kit
+Author: Nicolò Giannini
+Author-email: nicogiannini@yahoo.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
 # decision-kit
 
-Decision tree classifier implementation with branching criteria based on Gini impurity.
+Decision tree from scratch, implementation and accuracy comparison with branching criteria based on Gini impurity.
 Below a snapshot of the result I obtained.
 
 ```python
-from decision.imp.tree import DecisionTree as decision_tree
+from decisionkit.tree._tree import DecisionTree as decisionkit_tree
 from sklearn.tree import DecisionTreeClassifier as sklearn_tree
 
 # processing data...
 
 scikit_learn_tree = sklearn_tree()
-my_decision_tree = decision_tree()
+my_decision_tree = decisionkit_tree()
 
 scikit_learn_tree.fit(xtrain, ytrain)
 my_decision_tree.build(header, xtrain, ytrain)
@@ -25,3 +38,5 @@ print(f'My decision tree accuracy: {my_decision_tree_accuracy}')
 Scikit-learn accuracy: 0.838
 My decision tree accuracy: 0.822
 ```
+
+

@@ -1,4 +1,4 @@
-from decisionkit.utils.helper import to_column, to_row
+from decision.utils.helper import to_column, to_row
 
 def pre_processing(content):
     """

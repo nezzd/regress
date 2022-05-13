@@ -4,7 +4,7 @@ with open("README.md", "r") as d:
     long_description = d.read()
 
 setuptools.setup(
-    name="decisionkit",
+    name="decision",
     version="0.1.0",
     author="Nicolò Giannini",
     author_email="nicogiannini@yahoo.com",

@@ -1,4 +1,4 @@
-from decisionkit.utils.helper import to_column
+from decision.utils.helper import to_column
 
 def gini_index(data, target):
     """

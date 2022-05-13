@@ -1,5 +1,5 @@
-from decisionkit.utils.helper import to_column, subtract, take_only
-from decisionkit.tree._criterion import gini_index, gini_indices, min_gini
+from decision.utils.helper import to_column, subtract, take_only
+from decision.imp._criterion import gini_index, gini_indices, min_gini
 
 class Node:
     """
